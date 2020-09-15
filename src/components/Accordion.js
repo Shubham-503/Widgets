@@ -13,7 +13,7 @@ function Accordion({ items }) {
     );
   });
 
-  return <div>{renderedItems} </div>;
+  return <div className="ui styled accordion">{renderedItems} </div>;
 }
 
 export default Accordion;
