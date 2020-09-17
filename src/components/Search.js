@@ -25,6 +25,14 @@ function Search() {
   const renderedItems = results.map((result) => {
     return (
       <div className=" ui item" key={result.pageid}>
+        <div className="right floated content">
+          <a
+            href={`https://www.wikipedia.org?curid=${result.pageid}`}
+            className="ui button"
+          >
+            Go
+          </a>
+        </div>
         <div className="content">
           <div className="header">{result.title}</div>
           <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
