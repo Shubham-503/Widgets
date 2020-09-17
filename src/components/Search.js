@@ -19,7 +19,9 @@ function Search() {
       });
       setResults(data.query.search);
     };
-    search();
+    if (term) {
+      search();
+    }
   }, [term]);
 
   const renderedItems = results.map((result) => {
