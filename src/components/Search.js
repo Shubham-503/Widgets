@@ -19,9 +19,16 @@ function Search() {
       });
       setResults(data.query.search);
     };
-    if (term) {
-      search();
-    }
+
+    const timeout = setTimeout(() => {
+      if (term) {
+        search();
+      }
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, [term]);
 
   const renderedItems = results.map((result) => {
