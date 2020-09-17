@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Search() {
-  const [term, setTerm] = useState("");
-  console.log("render search");
+  const [term, setTerm] = useState("programming");
+  const [results, setResults] = useState([]);
 
+  console.log(results);
   useEffect(() => {
     const search = async () => {
-      await axios.get("http://en.wikipedia.org/w/api.php", {
+      const { data } = await axios.get("http://en.wikipedia.org/w/api.php", {
         params: {
           action: "query",
           list: "search",
@@ -16,9 +17,21 @@ function Search() {
           srsearch: term,
         },
       });
+      setResults(data.query.search);
     };
     search();
   }, [term]);
+
+  const renderedItems = results.map((result) => {
+    return (
+      <div className=" ui item" key={result.pageid}>
+        <div className="content">
+          <div className="header">{result.title}</div>
+          <span dangerouslySetInnerHTML={{ __html: result.snippet }}></span>
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div className="ui container">
@@ -33,6 +46,7 @@ function Search() {
           />
         </div>
       </div>
+      <div className="ui celled list">{renderedItems}</div>
     </div>
   );
 }
