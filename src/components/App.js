@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Accordion from "./Accordion";
 import Dropdown from "./Dropdown";
+import Route from "./Route";
 import Search from "./Search";
 import Translate from "./Translate";
 // AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM
@@ -56,12 +57,25 @@ const showTranslate = () => {
 };
 
 export const App = () => {
+  const [selected, setSelected] = useState(options[0]);
   return (
-    <div>
-      {showAccordion()}
-      {showDropdown()}
-      {showTranslate()}
-      {showSearch()}
+    <div className="">
+      <Route path="/">
+        <Accordion items={items} />
+      </Route>
+      <Route path="/list">
+        <Search />
+      </Route>
+      <Route path="/dropdown">
+        <Dropdown
+          options={options}
+          selected={selected}
+          onSelectedChange={setSelected}
+        />
+      </Route>
+      <Route path="/translate">
+        <Translate />
+      </Route>
     </div>
   );
 };
